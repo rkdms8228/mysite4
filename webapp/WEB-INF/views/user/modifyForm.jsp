@@ -78,6 +78,7 @@
 				<div id="user">
 					<div id="modifyForm">
 						<form action="/mysite4/user/modify" method="get">
+							<input type="hidden" name="no" value="${userVo.no}">
 	
 							<!-- 아이디 -->
 							<div class="form-group">
