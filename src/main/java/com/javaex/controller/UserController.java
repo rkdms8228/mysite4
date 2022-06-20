@@ -76,6 +76,20 @@ public class UserController {
 
 	}
 	
+	//로그아웃
+	@RequestMapping(value="/user/logout", method={RequestMethod.GET, RequestMethod.POST})
+	public String logout(@ModelAttribute UserVo userVo, HttpSession session) {
+		
+		System.out.println("UserController > logout");
+		
+		session.removeAttribute("authUser");
+		session.invalidate();
+		
+		return "redirect:/main";
+		
+	}
+		
+	
 	//수정폼
 	@RequestMapping(value="/user/modifyForm", method={RequestMethod.GET, RequestMethod.POST})
 	public String modifyForm() {
