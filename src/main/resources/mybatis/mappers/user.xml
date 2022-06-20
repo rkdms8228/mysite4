@@ -7,7 +7,7 @@
 	<insert id="insert" parameterType="com.javaex.vo.UserVo">
 		<![CDATA[
 			insert into users
-			values (seq_users_no.nextval, #{id}, #{pw}, #{name}, #{gender})
+			values (seq_users_no.nextval, #{id}, #{password}, #{name}, #{gender})
 		]]>
 	</insert>
 	
@@ -18,8 +18,32 @@
 				   , name
 			from users
 			where id = #{id}
-			and password = #{pw}
+			and password = #{password}
 		]]>
 	</select>
+	
+	<!-- 회원정보 가져오기(수정) -->
+	<select id="modifySelect" parameterType="com.javaex.vo.UserVo" resultType="com.javaex.vo.UserVo">
+		<![CDATA[
+			select no
+				   , id
+				   , password
+				   , name
+				   , gender
+			from users
+			where no = #{no}
+		]]>
+	</select>
+	
+	<!-- 회원정보 저장(수정) -->
+	<update id="modifyUpdate" parameterType="com.javaex.vo.UserVo">
+		<![CDATA[
+			update users
+			set password = #{password}
+			    , name = #{name}
+			    , gender = #{gender}
+			where no = #{no}
+		]]>	
+	</update>
 
 </mapper>
