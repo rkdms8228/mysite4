@@ -5,7 +5,7 @@ public class UserVo {
 	//필드
 	private int no;
 	private String id;
-	private String pw;
+	private String password;
 	private String name;
 	private String gender;
 	
@@ -13,10 +13,24 @@ public class UserVo {
 	//생성자
 	public UserVo() {}
 	
-	public UserVo(int no, String id, String pw, String name, String gender) {
+	public UserVo(int no, String password, String name, String gender) {
+		this.no = no;
+		this.password = password;
+		this.name = name;
+		this.gender = gender;
+	}
+	
+	public UserVo(String id, String password, String name, String gender) {
+		this.id = id;
+		this.password = password;
+		this.name = name;
+		this.gender = gender;
+	}
+	
+	public UserVo(int no, String id, String password, String name, String gender) {
 		this.no = no;
 		this.id = id;
-		this.pw = pw;
+		this.password = password;
 		this.name = name;
 		this.gender = gender;
 	}
@@ -38,12 +52,12 @@ public class UserVo {
 		this.id = id;
 	}
 
-	public String getPw() {
-		return pw;
+	public String getPassword() {
+		return password;
 	}
 
-	public void setPw(String pw) {
-		this.pw = pw;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 	public String getName() {
@@ -65,7 +79,7 @@ public class UserVo {
 	//메소드-일반
 	@Override
 	public String toString() {
-		return "UserVo [no=" + no + ", id=" + id + ", pw=" + pw + ", name=" + name + ", gender=" + gender + "]";
+		return "UserVo [no=" + no + ", id=" + id + ", password=" + password + ", name=" + name + ", gender=" + gender + "]";
 	}
 
 }
