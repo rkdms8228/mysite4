@@ -42,5 +42,26 @@ public class UserService {
 		return authUser;
 		
 	}
+	
+	//회원정보 수정폼
+	public UserVo modifyForm(int no) {
+		
+		System.out.println("UserService > modify");
+
+		UserVo userVo = userDao.modifySelect(no);
+		
+		return userVo;
+		
+	}
+	
+	public int modifyUpdate(UserVo userVo) {
+		
+		System.out.println("UserService > modifyUpdate");
+		
+		int count = userDao.modifyUpdate(userVo);
+		
+		return count;
+		
+	}
 
 }
