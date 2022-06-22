@@ -124,5 +124,17 @@ public class BoardController {
 		return "redirect:/board/list";
 		
 	}
+	
+	//게시판 삭제
+	@RequestMapping(value="/delete/{no}", method = {RequestMethod.GET, RequestMethod.POST})
+	public String delete(@PathVariable int no) {
+		
+		System.out.println("BoardController > delete");
+		
+		int count = boardService.delete(no);
+		
+		return "redirect:/board/list";
+		
+	}
 
 }

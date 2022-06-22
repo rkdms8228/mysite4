@@ -78,5 +78,16 @@ public class BoardService {
 		return count;
 		
 	}
+	
+	//게시판 삭제
+	public int delete(int no) {
+		
+		System.out.println("BoardService > delete");
+		
+		int count = boardDao.delete(no);
+		
+		return count;
+		
+	}
 
 }

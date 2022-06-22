@@ -83,5 +83,16 @@ public class BoardDao {
 		return count;
 		
 	}
+	
+	//게시판 삭제
+	public int delete(int no) {
+		
+		System.out.println("BoardDao > delete");
+		
+		int count = sqlSession.delete("board.delete", no);
+		
+		return count;
+		
+	}
 
 }

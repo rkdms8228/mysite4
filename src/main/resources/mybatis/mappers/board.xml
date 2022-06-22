@@ -60,5 +60,13 @@
 			where no = #{no}
 		]]>
 	</update>
+	
+	<!-- 게시판 삭제 -->
+	<delete id="delete" parameterType="int">
+		<![CDATA[
+			delete from board
+			where no = #{no}
+		]]>
+	</delete>
 
 </mapper>
