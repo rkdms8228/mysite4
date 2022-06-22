@@ -12,7 +12,7 @@
 	</insert>
 	
 	<!-- 회원정보 가져오기(로그인) -->
-	<select id="getUser" parameterType="com.javaex.vo.UserVo" resultType="com.javaex.vo.UserVo">
+	<select id="getUser" parameterType="com.javaex.vo.UserVo" resultType="UserVo">
 		<![CDATA[
 			select no
 				   , name
@@ -23,7 +23,7 @@
 	</select>
 	
 	<!-- 회원정보 가져오기(수정) -->
-	<select id="modifySelect" parameterType="com.javaex.vo.UserVo" resultType="com.javaex.vo.UserVo">
+	<select id="modifySelect" parameterType="com.javaex.vo.UserVo" resultType="UserVo">
 		<![CDATA[
 			select no
 				   , id
@@ -36,7 +36,7 @@
 	</select>
 	
 	<!-- 회원정보 저장(수정) -->
-	<update id="modifyUpdate" parameterType="com.javaex.vo.UserVo">
+	<update id="modifyUpdate" parameterType="UserVo">
 		<![CDATA[
 			update users
 			set password = #{password}

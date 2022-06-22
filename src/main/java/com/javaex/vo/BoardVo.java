@@ -74,7 +74,7 @@ public class BoardVo {
 	}
 	
 	public String getName() {
-		return regDate;
+		return name;
 	}
 
 	public void setName(String name) {

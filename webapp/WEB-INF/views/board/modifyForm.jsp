@@ -7,8 +7,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link href="/mysite2/assets/css/mysite.css" rel="stylesheet" type="text/css">
-<link href="/mysite2/assets/css/board.css" rel="stylesheet" type="text/css">
+<link href="/mysite4/assets/css/mysite.css" rel="stylesheet" type="text/css">
+<link href="/mysite4/assets/css/board.css" rel="stylesheet" type="text/css">
 
 </head>
 
@@ -17,11 +17,11 @@
 	<div id="wrap">
 
 		<!-- header -->
-		<c:import url="/WEB-INF/views/includes/header.jsp"></c:import>
+		<c:import url="/WEB-INF/views/include/header.jsp"></c:import>
 		<!-- //header -->
 
 		<!-- nav -->
-		<c:import url="/WEB-INF/views/includes/nav.jsp"></c:import>
+		<c:import url="/WEB-INF/views/include/nav.jsp"></c:import>
 		<!-- //nav -->
 
 		<div id="container" class="clearfix">
@@ -51,7 +51,7 @@
 	
 				<div id="board">
 					<div id="modifyForm">
-						<form action="/mysite2/board" method="get">
+						<form action="/mysite4/board" method="get">
 							<input type="hidden" name="action" value="modify">
 							<input type="hidden" name="no" value="${boardVo.no}">
 							<!-- 작성자 -->
@@ -85,7 +85,7 @@
 								<textarea id="txt-content" name="content" value="${boardVo.content}">${boardVo.content}</textarea>
 							</div>
 							
-							<a id="btn_cancel" href="/mysite2/board?action=list">취소</a>
+							<a id="btn_cancel" href="/mysite4/board/list">취소</a>
 							<button id="btn_modify" type="submit" >수정</button>
 							
 						</form>
@@ -101,7 +101,7 @@
 		<!-- //container  -->
 
 		<!-- footer -->
-		<c:import url="/WEB-INF/views/includes/footer.jsp"></c:import>
+		<c:import url="/WEB-INF/views/include/footer.jsp"></c:import>
 		<!-- //footer -->
 		
 	</div>

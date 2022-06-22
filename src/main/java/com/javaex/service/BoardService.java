@@ -1,6 +1,7 @@
 package com.javaex.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,17 +23,49 @@ public class BoardService {
 	
 	
 	//메소드-일반
-	//리스트 불러오기
-	public List<BoardVo> getList() {
+	//리스트 불러오기 + 검색
+	public List<Map<String, Object>> getList(String keyword) {
 		
 		System.out.println("BoardService > getList");
 		
-		List<BoardVo> boardList = boardDao.getList();
+		List<Map<String, Object>> boardList = boardDao.getList(keyword);
 		
 		//System.out.println(boardList);
 		
 		return boardList;
 		
+	}
+	
+	//게시판 내용 읽기
+	public Map<String, Object> read(int no) {
+		
+		System.out.println("BoardService > read");
+		
+		Map<String, Object> bMap = boardDao.read(no);
+		
+		return bMap;
+		
+	}
+	
+	//게시판 조회수
+	public int boardHit(int no) {
+		
+		System.out.println("BoardService > boardHit");
+		
+		int count = boardDao.boardHit(no);
+		
+		return count;
+		
+	}
+	
+	//게시판 글쓰기
+	public int write(BoardVo boardVo) {
+		
+		System.out.println("BoardService > write");
+		
+		int count = boardDao.write(boardVo);
+
+		return count;
 	}
 
 }

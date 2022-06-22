@@ -2,20 +2,53 @@
 
 <mapper namespace="board">
 
-	<!-- 리스트 불러오기 -->
-	<select id="getList" resultType="com.javaex.vo.BoardVo">
+	<!-- 리스트 불러오기 + 검색 -->
+	<select id="getList" parameterType="String" resultType="map">
 		<![CDATA[
-			select b.no no
-			        , b.title title
-			        , u.name name
-			        , b.hit hit
+			select b.no
+			        , b.title
+			        , u.name
+			        , b.hit
 			        , to_char(b.reg_date,'YYYY-MM-DD HH24:MI') regDate
 			        , b.user_no userNo
 			from board b, users u
 			where u.no = b.user_no
+			and title like #{keyword}
 			order by no asc
 		]]>
 	</select>
 	
+	<!-- 게시판 내용 읽기 -->
+	<select id="read" parameterType="int" resultType="map">
+		<![CDATA[
+			select b.no
+			        , b.title
+			        , u.name
+			        , b.content
+			        , b.hit
+			        , to_char(b.reg_date,'YYYY-MM-DD HH24:MI') regDate
+			        , b.user_no userNo
+			from board b, users u
+			where u.no = b.user_no
+			and b.no = #{no}
+		]]>
+	</select>
+	
+	<!-- 게시판 조회수 -->
+	<update id="boardHit" parameterType="int">
+		<![CDATA[
+			update board
+			set hit = hit + 1
+			where no = #{no}
+		]]>
+	</update>
+	
+	<!-- 게시판 글쓰기 -->
+	<insert id="insert" parameterType="BoardVo">
+		<![CDATA[
+			insert into board
+			values(seq_board_no.nextval, #{title}, #{content}, 0, sysdate, #{userNo})
+		]]>
+	</insert>
 
 </mapper>

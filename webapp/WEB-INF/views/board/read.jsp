@@ -7,8 +7,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link href="/mysite2/assets/css/mysite.css" rel="stylesheet" type="text/css">
-<link href="/mysite2/assets/css/board.css" rel="stylesheet" type="text/css">
+<link href="/mysite4/assets/css/mysite.css" rel="stylesheet" type="text/css">
+<link href="/mysite4/assets/css/board.css" rel="stylesheet" type="text/css">
 
 </head>
 
@@ -17,11 +17,11 @@
 	<div id="wrap">
 
 		<!-- header -->
-		<c:import url="/WEB-INF/views/includes/header.jsp"></c:import>
+		<c:import url="/WEB-INF/views/include/header.jsp"></c:import>
 		<!-- //header -->
 
 		<!-- nav -->
-		<c:import url="/WEB-INF/views/includes/nav.jsp"></c:import>
+		<c:import url="/WEB-INF/views/include/nav.jsp"></c:import>
 		<!-- //nav -->
 
 		<div id="container" class="clearfix">
@@ -51,41 +51,40 @@
 	
 				<div id="board">
 					<div id="read">
-						<form action="/mysite2/board" method="get">
-						<input type="hidden" name="action" value="">
+						<form action="#" method="get">
 							<!-- 작성자 -->
 							<div class="form-group">
 								<span class="form-text">작성자</span>
-								<span class="form-value">${boardVo.name}</span>
+								<span class="form-value">${bmap.NAME}</span>
 							</div>
 							
 							<!-- 조회수 -->
 							<div class="form-group">
 								<span class="form-text">조회수</span>
-								<span class="form-value">${boardVo.hit}</span>
+								<span class="form-value">${bmap.HIT}</span>
 							</div>
 							
 							<!-- 작성일 -->
 							<div class="form-group">
 								<span class="form-text">작성일</span>
-								<span class="form-value">${boardVo.regDate}</span>
+								<span class="form-value">${bmap.REGDATE}</span>
 							</div>
 							
 							<!-- 제목 -->
 							<div class="form-group">
 								<span class="form-text">제 목</span>
-								<span class="form-value">${boardVo.title}</span>
+								<span class="form-value">${bmap.TITLE}</span>
 							</div>
 						
 							<!-- 내용 -->
 							<div id="txt-content">
-								<span class="form-value" >${boardVo.content}</span>
+								<span class="form-value" >${bmap.CONTENT}</span>
 							</div>
 							
-							<c:if test="${authUser.no eq boardVo.userNo}">
-								<a id="btn_modify" href="/mysite2/board?action=modifyForm&no=${boardVo.no}">수정</a>
+							<c:if test="${authUser.no eq bmap.USERNO}">
+								<a id="btn_modify" href="/mysite4/board/modifyForm/${bmap.NO}">수정</a>
 							</c:if>
-							<a id="btn_modify" href="/mysite2/board?action=list">목록</a>
+							<a id="btn_modify" href="/mysite4/board/list">목록</a>
 							
 						</form>
 						<!-- //form -->
@@ -100,7 +99,7 @@
 		<!-- //container  -->
 
 		<!-- footer -->
-		<c:import url="/WEB-INF/views/includes/footer.jsp"></c:import>
+		<c:import url="/WEB-INF/views/include/footer.jsp"></c:import>
 		<!-- //footer -->
 		
 	</div>

@@ -3,7 +3,7 @@
 <mapper namespace="guest">
 
 	<!-- 방명록 불러오기 -->
-	<select id="select" resultType="com.javaex.vo.GuestVo">
+	<select id="select" resultType="GuestVo">
 		<![CDATA[
 			select  no
 			        , name
@@ -16,7 +16,7 @@
 	</select>
 	
 	<!-- 방명록 추가 -->
-	<insert id="insert" parameterType="com.javaex.vo.GuestVo">
+	<insert id="insert" parameterType="GuestVo">
 		<![CDATA[
 			insert into guestbook
 			values (seq_guestbook_no.nextval, #{name}, #{password}, #{content}, sysdate)
@@ -24,7 +24,7 @@
 	</insert>
 	
 	<!-- 방명록 삭제 -->
-	<delete id="delete" parameterType="com.javaex.vo.GuestVo">
+	<delete id="delete" parameterType="GuestVo">
 		<![CDATA[
 			delete guestbook
 			where no = #{no}
