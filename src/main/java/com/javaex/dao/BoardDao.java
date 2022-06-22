@@ -72,5 +72,16 @@ public class BoardDao {
 		return count;
 		
 	}
+	
+	//게시판 수정
+	public int modify(BoardVo boardVo) {
+		
+		System.out.println("BoardDao > modify");
+		
+		int count = sqlSession.update("board.modify", boardVo);
+		
+		return count;
+		
+	}
 
 }

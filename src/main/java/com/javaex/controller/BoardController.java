@@ -109,5 +109,20 @@ public class BoardController {
 		return "/board/modifyForm";
 		
 	}
+	
+	//게시판 수정
+	@RequestMapping(value="/modify", method = {RequestMethod.GET, RequestMethod.POST})
+	public String modify(@ModelAttribute BoardVo boardVo) {
+		
+		System.out.println("BoardController > modify");
+		
+		//줄바꿈(구글링으로 찾아봄*재확인 필요)
+		boardVo.setContent(boardVo.getContent().replace("\n", "<br>"));
+		
+		int count = boardService.modify(boardVo);
+		
+		return "redirect:/board/list";
+		
+	}
 
 }

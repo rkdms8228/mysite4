@@ -50,5 +50,15 @@
 			values(seq_board_no.nextval, #{title}, #{content}, 0, sysdate, #{userNo})
 		]]>
 	</insert>
+	
+	<!-- 게시판 수정 -->
+	<update id="modify" parameterType="BoardVo">
+		<![CDATA[
+			update board
+			set title = #{title}
+				, content = #{content}
+			where no = #{no}
+		]]>
+	</update>
 
 </mapper>
