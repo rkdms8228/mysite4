@@ -28,6 +28,8 @@ public class BoardDao {
 		
 		List<BoardVo> boardList = sqlSession.selectList("board.getList");
 		
+		//System.out.println(boardList);
+		
 		return boardList;
 		
 	}
