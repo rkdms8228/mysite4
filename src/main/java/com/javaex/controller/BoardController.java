@@ -52,9 +52,6 @@ public class BoardController {
 	public String read(Model model, @PathVariable int no) {
 		
 		System.out.println("BoardController > read");
-		
-		//조회수
-		int count = boardService.boardHit(no);
 				
 		//내용 읽기
 		Map<String, Object> bMap = boardService.read(no);

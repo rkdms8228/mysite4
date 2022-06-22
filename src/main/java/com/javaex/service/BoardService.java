@@ -36,25 +36,16 @@ public class BoardService {
 		
 	}
 	
-	//게시판 내용 읽기
+	//게시판 내용 읽기 + 조회수
 	public Map<String, Object> read(int no) {
 		
 		System.out.println("BoardService > read");
 		
+		boardDao.boardHit(no);
+		
 		Map<String, Object> bMap = boardDao.read(no);
 		
 		return bMap;
-		
-	}
-	
-	//게시판 조회수
-	public int boardHit(int no) {
-		
-		System.out.println("BoardService > boardHit");
-		
-		int count = boardDao.boardHit(no);
-		
-		return count;
 		
 	}
 	
