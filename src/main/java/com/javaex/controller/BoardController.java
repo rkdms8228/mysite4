@@ -83,7 +83,7 @@ public class BoardController {
 		//줄바꿈(구글링으로 찾아봄*재확인 필요)
 		boardVo.setContent(boardVo.getContent().replace("\n", "<br>"));
 		
-		int count = boardService.write(boardVo);
+		boardService.write(boardVo);
 		
 		return "redirect:/board/list";
 		
@@ -116,7 +116,7 @@ public class BoardController {
 		//줄바꿈(구글링으로 찾아봄*재확인 필요)
 		boardVo.setContent(boardVo.getContent().replace("\n", "<br>"));
 		
-		int count = boardService.modify(boardVo);
+		boardService.modify(boardVo);
 		
 		return "redirect:/board/list";
 		
@@ -128,7 +128,7 @@ public class BoardController {
 		
 		System.out.println("BoardController > delete");
 		
-		int count = boardService.delete(no);
+		boardService.delete(no);
 		
 		return "redirect:/board/list";
 		
