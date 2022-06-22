@@ -51,7 +51,7 @@
 	
 				<div id="board">
 					<div id="list">
-						<form action="" method="">
+						<form action="/mysite4/board" method="get">
 							<div class="form-group text-right">
 								<input type="text">
 								<button type="submit" id=btn_search>검색</button>
@@ -76,7 +76,7 @@
 										<td>${boardVo.name}</td>
 										<td>${boardVo.hit}</td>
 										<td>${boardVo.regDate}</td>
-										<c:if test="${authUser.no == boardVo.userNo}">
+										<c:if test="${authUser.no eq boardVo.userNo}">
 											<td><a href="/mysite4/board/delete?no=${boardVo.no}">[삭제]</a></td>
 										</c:if>
 									</tr>
