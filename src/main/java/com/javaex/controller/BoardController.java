@@ -53,12 +53,12 @@ public class BoardController {
 		
 		System.out.println("BoardController > read");
 		
+		//조회수
+		int count = boardService.boardHit(no);
+				
 		//내용 일기
 		Map<String, Object> bMap = boardService.read(no);
 		model.addAttribute("bMap", bMap);
-		
-		//조회수
-		int count = boardService.boardHit(no);
 		
 		return "/board/read";
 		
