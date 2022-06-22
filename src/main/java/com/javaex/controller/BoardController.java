@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.javaex.service.BoardService;
 import com.javaex.vo.BoardVo;
+import com.javaex.vo.UserVo;
 
 @Controller
 @RequestMapping(value="/board")
@@ -79,7 +80,7 @@ public class BoardController {
 		
 		System.out.println("BoardController > write");
 		
-		BoardVo authUser = (BoardVo)session.getAttribute("authUser");
+		UserVo authUser = (UserVo)session.getAttribute("authUser");
 		boardVo.setUserNo(authUser.getNo());
 		
 		//줄바꿈
