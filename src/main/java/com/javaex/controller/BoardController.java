@@ -101,7 +101,7 @@ public class BoardController {
 		Map<String, Object> bMap = boardService.read(no);
 		
 		//줄바꿈(구글링으로 찾아봄*재확인 필요)
-		String replace = ((String)bMap.get("CONTENT")).replace("\n", "<br>");
+		String replace = ((String)bMap.get("CONTENT")).replace("<br>", "\n");
 		bMap.put("CONTENT", replace);
 		
 		model.addAttribute("bMap", bMap);
