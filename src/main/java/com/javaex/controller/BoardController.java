@@ -83,7 +83,7 @@ public class BoardController {
 		UserVo authUser = (UserVo)session.getAttribute("authUser");
 		boardVo.setUserNo(authUser.getNo());
 		
-		//줄바꿈
+		//줄바꿈(구글링으로 찾아봄*재확인 필요)
 		boardVo.setContent(boardVo.getContent().replace("\n", "<br>"));
 		
 		int count = boardService.write(boardVo);
@@ -100,8 +100,11 @@ public class BoardController {
 		
 		Map<String, Object> bMap = boardService.read(no);
 		
-		//줄바꿈
+		//줄바꿈(구글링으로 찾아봄*재확인 필요)
+		String replace = ((String)bMap.get("CONTENT")).replace("\n", "<br>");
+		bMap.put("CONTENT", replace);
 		
+		model.addAttribute("bMap", bMap);
 		
 		return "/board/modifyForm";
 		
