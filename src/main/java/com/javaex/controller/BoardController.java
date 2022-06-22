@@ -84,12 +84,26 @@ public class BoardController {
 		boardVo.setUserNo(authUser.getNo());
 		
 		//줄바꿈
-		String replace = boardVo.getContent().replace("\n", "<br>");
-		boardVo.setContent(replace);
+		boardVo.setContent(boardVo.getContent().replace("\n", "<br>"));
 		
 		int count = boardService.write(boardVo);
 		
 		return "redirect:/board/list";
+		
+	}
+	
+	//게시판 수정폼
+	@RequestMapping(value="/modifyForm/{no}", method= {RequestMethod.GET, RequestMethod.POST})
+	public String modifyForm(Model model, @PathVariable int no) {
+		
+		System.out.println("BoardController > modifyForm");
+		
+		Map<String, Object> bMap = boardService.read(no);
+		
+		//줄바꿈
+		
+		
+		return "/board/modifyForm";
 		
 	}
 

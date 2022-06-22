@@ -53,7 +53,7 @@
 					<div id="list">
 						<form action="/mysite4/board/list" method="get">
 							<div class="form-group text-right">
-								<input type="text" name="keyword" value="">
+								<input type="text" name="keyword">
 								<button type="submit" id=btn_search>검색</button>
 							</div>
 						</form>
@@ -69,15 +69,15 @@
 								</tr>
 							</thead>
 							<tbody>
-								<c:forEach items="${boardList}" var="bmap">
+								<c:forEach items="${boardList}" var="bMap">
 									<tr>
-										<td>${bmap.NO}</td>
-										<td class="text-left"><a href="/mysite4/board/read/${bmap.NO}">${bmap.TITLE}</a></td>
-										<td>${bmap.NAME}</td>
-										<td>${bmap.HIT}</td>
-										<td>${bmap.REGDATE}</td>
-										<c:if test="${authUser.no eq bmap.USERNO}">
-											<td><a href="/mysite4/board/delete/${bmap.NO}">[삭제]</a></td>
+										<td>${bMap.NO}</td>
+										<td class="text-left"><a href="/mysite4/board/read/${bMap.NO}">${bMap.TITLE}</a></td>
+										<td>${bMap.NAME}</td>
+										<td>${bMap.HIT}</td>
+										<td>${bMap.REGDATE}</td>
+										<c:if test="${authUser.no eq bMap.USERNO}">
+											<td><a href="/mysite4/board/delete/${bMap.NO}">[삭제]</a></td>
 										</c:if>
 									</tr>
 							</c:forEach>
