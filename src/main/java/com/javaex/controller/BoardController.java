@@ -56,7 +56,7 @@ public class BoardController {
 		//조회수
 		int count = boardService.boardHit(no);
 				
-		//내용 일기
+		//내용 읽기
 		Map<String, Object> bMap = boardService.read(no);
 		model.addAttribute("bMap", bMap);
 		
