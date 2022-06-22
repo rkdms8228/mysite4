@@ -55,34 +55,34 @@
 							<!-- 작성자 -->
 							<div class="form-group">
 								<span class="form-text">작성자</span>
-								<span class="form-value">${bmap.NAME}</span>
+								<span class="form-value">${bMap.NAME}</span>
 							</div>
 							
 							<!-- 조회수 -->
 							<div class="form-group">
 								<span class="form-text">조회수</span>
-								<span class="form-value">${bmap.HIT}</span>
+								<span class="form-value">${bMap.HIT}</span>
 							</div>
 							
 							<!-- 작성일 -->
 							<div class="form-group">
 								<span class="form-text">작성일</span>
-								<span class="form-value">${bmap.REGDATE}</span>
+								<span class="form-value">${bMap.REGDATE}</span>
 							</div>
 							
 							<!-- 제목 -->
 							<div class="form-group">
 								<span class="form-text">제 목</span>
-								<span class="form-value">${bmap.TITLE}</span>
+								<span class="form-value">${bMap.TITLE}</span>
 							</div>
 						
 							<!-- 내용 -->
 							<div id="txt-content">
-								<span class="form-value" >${bmap.CONTENT}</span>
+								<span class="form-value" >${bMap.CONTENT}</span>
 							</div>
 							
-							<c:if test="${authUser.no eq bmap.USERNO}">
-								<a id="btn_modify" href="/mysite4/board/modifyForm/${bmap.NO}">수정</a>
+							<c:if test="${authUser.no eq bMap.USERNO}">
+								<a id="btn_modify" href="/mysite4/board/modifyForm/${bMap.NO}">수정</a>
 							</c:if>
 							<a id="btn_modify" href="/mysite4/board/list">목록</a>
 							
