@@ -29,6 +29,8 @@ public class BoardService {
 		
 		List<BoardVo> boardList = boardDao.getList();
 		
+		//System.out.println(boardList);
+		
 		return boardList;
 		
 	}

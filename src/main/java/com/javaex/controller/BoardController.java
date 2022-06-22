@@ -35,6 +35,8 @@ public class BoardController {
 		List<BoardVo> boardList = boardService.getList();
 		model.addAttribute("boardList", boardList);
 		
+		//System.out.println(boardList);
+		
 		return "board/list";
 		
 	}
