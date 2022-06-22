@@ -41,8 +41,10 @@ public class BoardService {
 		
 		System.out.println("BoardService > read");
 		
+		//조회수 올리기
 		boardDao.boardHit(no);
 		
+		//게시판 내용 읽기
 		Map<String, Object> bMap = boardDao.read(no);
 		
 		return bMap;
