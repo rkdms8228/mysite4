@@ -23,6 +23,33 @@
 		]]>
 	</insert>
 	
+	<!-- 방명록 저장(ajax) -->
+	<insert id="insertSelectKey" parameterType="GuestVo">
+	
+		<selectKey keyProperty="no" resultType="int" order="BEFORE">
+			select seq_guestbook_no.nextval from dual
+		</selectKey>
+	
+		<![CDATA[   
+			insert into guestbook
+			values ( #{no}, #{name}, #{password}, #{content}, SYSDATE )
+		]]>
+	
+	</insert>
+	
+	<!-- 방명록 1개의 데이터 조회하기(ajax) -->
+	<select id="add" parameterType="int" resultType="GuestVo">
+		<![CDATA[
+			select no
+					, name
+					, password
+					, content
+					, reg_date regDate
+			from guestbook
+			where no = #{no}
+		]]>
+	</select>
+	
 	<!-- 방명록 삭제 -->
 	<delete id="delete" parameterType="GuestVo">
 		<![CDATA[
