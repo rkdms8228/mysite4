@@ -47,7 +47,7 @@ public class GuestbookController {
 		
 		System.out.println("GuestbookController > add");
 		
-		int count = guestService.addList(guestVo);
+		int count = guestService.guestAdd(guestVo);
 		
 		return "redirect:/guestbook/addList";
 		
