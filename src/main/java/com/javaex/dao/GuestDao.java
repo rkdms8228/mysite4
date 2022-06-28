@@ -33,14 +33,27 @@ public class GuestDao {
 		
 	}
 	
-	//방명록 추가
+	//방명록 추가(ajax)
 	public int guestAdd(GuestVo guestVo) {
 		
 		System.out.println("GuestDao > guestAdd");
 		
-		int count = sqlSession.insert("guest.insert", guestVo);
+		//int count = sqlSession.insert("guest.insert", guestVo);
+		int count = sqlSession.insert("guest.insertSelectKey", guestVo);
 		
 		return count;
+		
+	}
+	
+	//방명록 저장 후 등록한 데어터 가져오기(ajax)
+	public GuestVo add(int no) {
+		
+		System.out.println("GuestDao > add");
+		
+		//int count = sqlSession.insert("guest.insert", guestVo);
+		GuestVo guestVo = sqlSession.selectOne("guest.add", no);
+		
+		return guestVo;
 		
 	}
 	
