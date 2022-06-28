@@ -54,7 +54,7 @@
 				<!-- //content-head -->
 
 				<div id="guestbook">
-					<form action="/mysite4/guestbook/add" method="get">
+					<form action="${pageContext.request.contextPath}/guestbook/add" method="get">
 						<table id="guestAdd">
 							<colgroup>
 								<col style="width: 70px;">
@@ -73,7 +73,7 @@
 									<td colspan="4"><textarea name="content" cols="72" rows="5"></textarea></td>
 								</tr>
 								<tr class="button-area">
-									<td colspan="4" class="text-center"><button type="submit">등록</button></td>
+									<td colspan="4" class="text-center"><button type="submit" id="btnSubmit">등록</button></td>
 								</tr>
 							</tbody>
 							
@@ -109,69 +109,120 @@
 		<!-- 준비가 끝나면 -->
 		$(document).ready(function() {
 			
-			console.log("jquery로 요청");
+			console.log("jquery로 요청 data만 받는 요청");
+			
+			//리스트 요청 + 그리기
+			fetchList();
+			
+		});
+		
+		//저장 버튼을 클릭했을 때
+		$("#btnSubmit").on("click", function() {
+			console.log("저장 버튼 클릭");
+		});
+		
+
+			
+		//데이터 수집
+		var name = $("[name=name]").val();
+		var password = $("[name=password]").val();
+		var content = $("[name=content]").val();
+		
+		//데이터 객체로 묶기
+		var guestVo = {
+				name: name
+				, password: password
+				, content: content
+		};
+		
+		$.ajax({
+			
+			//보낼 때
+			/* url : "${pageContext.request.contextPath }/api/guestbook/add?name="+name+"&password="+password+"&content="+content,	 */
+			url : "${pageContext.request.contextPath}/api/guestbook/add",
+			type : "post",
+			//contentType : "application/json",
+			data : guestVo, //파라미터 정리됨
+			
+			//받을 때
+			dataType : "json",
+			success : function(gvo){
+				
+				//성공시 처리해야 될 코드 작성
+				console.log(gvo);
+				
+				/* 1개데이터 리스트 추가(그리기)하기 */
+				render(gvo, "up");
+				
+				/* 입력폼 초기화 */
+				$("[name=name]").val("");
+				$("[name=password]").val("");
+				$("[name=content]").val("");
+				
+			},
+			error : function(XHR, status, error) {
+				console.error(status + " : " + error);
+			}
+			
+		});
+		
+		/* 리스트 요청 */
+		function fetchList(){
 			
 			$.ajax({
 				
-				url : "${pageContext.request.contextPath }/api/guestbook/list",
+				url : "${pageContext.request.contextPath}/api/guestbook/list",		
 				type : "post",
 				//contentType : "application/json",
-				//data : {name: "홍길동"},
+				//data : {name: ”홍길동"},
 				
 				dataType : "json",
-				success : function(guestList){
-					
-					/*성공시 처리해야 될 코드 작성*/
-					console.log(guestList);
-					//console.log(guestList[0].name);
-					
-					//화면에 data + html 그리기
-					for(var i=0; i<guestList.length; i++) {
-						
-						render(guestList[i]); //vo --> 화면에 그리는 작업
-						
+				success : function(guestbookList){
+					//화면 data + html 그린다
+					for(var i=0; i<guestbookList.length; i++){
+						render(guestbookList[i], "down");  //vo --> 화면에 그린다.
 					}
-					
 				},
 				error : function(XHR, status, error) {
 					console.error(status + " : " + error);
 				}
-				
 			});
 			
-		});
+		}
 		
-		function render(guestVo) {
+		/* 리스트 그리기 1개씩*/
+		function render(guestVo, opt) {
 			
 			console.log("render");
 			//var name = guestVo.name;
 			
-			var str = "" ;
-			str += "<c:forEach items='${guestList}' var='guestVo'>" ;
-			str += "	<table class='guestRead'>" ;
-			str += "		<colgroup>" ;
-			str += "			<col style='width: 10%;'>" ;
-			str += "			<col style='width: 40%;'>" ;
-			str += "			<col style='width: 40%;'>" ;
-			str += "			<col style='width: 10%;'>" ;
-			str += "		</colgroup>" ;
-			str += "		<tr>" ;
-			str += "			<td>[ ${guestVo.no}번 ]</td>" ;
-			str += "			<td> 이름: ${guestVo.name} </td>" ;
-			str += "			<td>[ 등록날짜: ${guestVo.regDate} ]</td>" ;
-			str += "			<td><a href='/mysite4/guestbook/deleteForm/${guestVo.no}'>[삭제]</a></td>" ;
-			str += "		</tr>" ;
-			str += "		<tr>" ;
-			str += "			<td colspan='4'>" ;
-			str += "			${guestVo.no} 번째 방명록 내용<br>" ;
-			str += "			${guestVo.content}" ;
-			str += "			</td>" ;
-			str += "		</tr>" ;
-			str += "	</table>" ;
-			str += "</c:forEach>" ;
+			var str = '' ;
+			str += '<table class="guestRead">';
+			str += '   <colgroup>';
+			str += '      <col style="width: 10%;">';
+			str += '      <col style="width: 40%;">';
+			str += '      <col style="width: 40%;">';
+			str += '      <col style="width: 10%;">';
+			str += '   </colgroup>';
+			str += '   <tr>';
+			str += '      <td>'+guestVo.no+'</td>';
+			str += '      <td>'+guestVo.name+'</td>';
+			str += '      <td>'+guestVo.regDate+'</td>';
+			str += '       <td><a href="">[삭제]</a></td>';
+			str += '   </tr>';
+			str += '   <tr>';
+			str += '      <td colspan=4 class="text-left">'+guestVo.content+'</td>';
+			str += '   </tr>';
+			str += '</table>';
+
+			if(opt == "down") {
+				$("#ListArea").append(str);
+			}else if(opt == "up") {
+				$("#ListArea").prepend(str);
+			}else {
+				console.log("opt오류");
+			}
 			
-			
-			//$("#ListArea").append(name+ "<br>");
 			
 		}
 		
