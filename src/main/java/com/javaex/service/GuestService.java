@@ -34,13 +34,29 @@ public class GuestService {
 	}
 	
 	//방명록 추가
-	public int addList(GuestVo guestVo) {
+	public int guestAdd(GuestVo guestVo) {
 		
-		System.out.println("GuestService > addList");
+		System.out.println("GuestService > guestAdd");
 		
 		int count = guestDao.guestAdd(guestVo);
 		
 		return count;
+		
+	}
+	
+	//방명록 추가(ajax)
+	public GuestVo add(GuestVo guestVo) {
+		
+		System.out.println("GuestService > add");
+		//저장
+		int count = guestDao.guestAdd(guestVo);
+		
+		int no = guestVo.getNo();
+		
+		//방금 저장한 1개의 데이터를 가져오기
+		GuestVo gvo = guestDao.add(no);
+		
+		return gvo;
 		
 	}
 	
