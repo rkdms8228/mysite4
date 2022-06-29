@@ -50,13 +50,13 @@
 		]]>
 	</select>
 	
-	<!-- 방명록 삭제 -->
-	<delete id="delete" parameterType="GuestVo">
+	<!-- 방명록 1개의 데이터 삭제(ajax) -->
+	<select id="delete" parameterType="GuestVo">
 		<![CDATA[
 			delete guestbook
 			where no = #{no}
 			and password = #{password}
-		]]>		
-	</delete>
+		]]>
+	</select>
 
 </mapper>
