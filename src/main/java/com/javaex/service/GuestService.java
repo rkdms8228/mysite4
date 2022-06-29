@@ -48,6 +48,7 @@ public class GuestService {
 	public GuestVo add(GuestVo guestVo) {
 		
 		System.out.println("GuestService > add");
+		
 		//저장
 		int count = guestDao.guestAdd(guestVo);
 		
@@ -61,13 +62,21 @@ public class GuestService {
 	}
 	
 	//방명록 삭제
-	public int guestDelete(GuestVo guestVo) {
+	public String guestDelete(GuestVo guestVo) {
 		
 		System.out.println("GuestService > guestDelete");
 		
+		String state;
+		
 		int count = guestDao.guestDelete(guestVo);
 		
-		return count;
+		if(count>0) {
+			state = "success";
+		}else {
+			state = "fail";
+		}
+		
+		return state;
 		
 	}
 
