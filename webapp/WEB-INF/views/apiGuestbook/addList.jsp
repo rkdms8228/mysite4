@@ -8,13 +8,13 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <!-- css -->
+<link href="${pageContext.request.contextPath}/assets/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css">
 <link href="${pageContext.request.contextPath}/assets/css/mysite.css" rel="stylesheet" type="text/css">
 <link href="${pageContext.request.contextPath}/assets/css/guestbook.css" rel="stylesheet" type="text/css">
 
 <!-- js -->
-<script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/jquery/jquery-1.12.4.js">
-
-</script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/jquery/jquery-1.12.4.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/assets/bootstrap/js/bootstrap.js"></script>
 
 </head>
 
@@ -118,53 +118,54 @@
 		
 		//저장 버튼을 클릭했을 때
 		$("#btnSubmit").on("click", function() {
+			
 			console.log("저장 버튼 클릭");
+			
+			//데이터 수집
+			var name = $("[name=name]").val();
+			var password = $("[name=password]").val();
+			var content = $("[name=content]").val();
+			
+			//데이터 객체로 묶기
+			var guestVo = {
+					name: name
+					, password: password
+					, content: content
+			};
+			
+			$.ajax({
+				
+				//보낼 때
+				/* url : "${pageContext.request.contextPath }/api/guestbook/add?name="+name+"&password="+password+"&content="+content,	 */
+				url : "${pageContext.request.contextPath}/api/guestbook/add",
+				type : "post",
+				//contentType : "application/json",
+				data : guestVo, //파라미터 정리됨
+				
+				//받을 때
+				dataType : "json",
+				success : function(gvo){
+					
+					//성공시 처리해야 될 코드 작성
+					console.log(gvo);
+					
+					/* 1개데이터 리스트 추가(그리기)하기 */
+					render(gvo, "up");
+					
+					/* 입력폼 초기화 */
+					$("[name=name]").val("");
+					$("[name=password]").val("");
+					$("[name=content]").val("");
+					
+				},
+				error : function(XHR, status, error) {
+					console.error(status + " : " + error);
+				}
+				
+			});
+			
 		});
 		
-
-			
-		//데이터 수집
-		var name = $("[name=name]").val();
-		var password = $("[name=password]").val();
-		var content = $("[name=content]").val();
-		
-		//데이터 객체로 묶기
-		var guestVo = {
-				name: name
-				, password: password
-				, content: content
-		};
-		
-		$.ajax({
-			
-			//보낼 때
-			/* url : "${pageContext.request.contextPath }/api/guestbook/add?name="+name+"&password="+password+"&content="+content,	 */
-			url : "${pageContext.request.contextPath}/api/guestbook/add",
-			type : "post",
-			//contentType : "application/json",
-			data : guestVo, //파라미터 정리됨
-			
-			//받을 때
-			dataType : "json",
-			success : function(gvo){
-				
-				//성공시 처리해야 될 코드 작성
-				console.log(gvo);
-				
-				/* 1개데이터 리스트 추가(그리기)하기 */
-				render(gvo, "up");
-				
-				/* 입력폼 초기화 */
-				$("[name=name]").val("");
-				$("[name=password]").val("");
-				$("[name=content]").val("");
-				
-			},
-			error : function(XHR, status, error) {
-				console.error(status + " : " + error);
-			}
-			
-		});
 		
 		/* 리스트 요청 */
 		function fetchList(){
