@@ -8,9 +8,9 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <!-- css -->
-<link href="${pageContext.request.contextPath}/assets/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css">
 <link href="${pageContext.request.contextPath}/assets/css/mysite.css" rel="stylesheet" type="text/css">
 <link href="${pageContext.request.contextPath}/assets/css/guestbook.css" rel="stylesheet" type="text/css">
+<link href="${pageContext.request.contextPath}/assets/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css">
 
 <!-- js -->
 <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/jquery/jquery-1.12.4.js"></script>
@@ -78,8 +78,9 @@
 							</tbody>
 							
 						</table>
-						<!-- //guestWrite -->	
-					</form>	
+						<!-- //guestWrite -->
+						
+					</form>
 					
 					<!-- guestRead -->
 					<div id="ListArea">
@@ -101,12 +102,41 @@
 		
 	</div>
 	<!-- //wrap -->
+	
+	<!-- ////////////////////////////////////////////////////////////////// -->
+	<!-- 삭제 모달창 -->
+	<div id="delModal" class="modal fade">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title">비밀번호를 입력하세요.</h4>
+				</div>
+				<div class="modal-body">
+				
+				PASSWORD <input type="text" name="password" value=""> <br><br>
+				<input type="hidden" name="no" value="">	
+				
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button id="btnModalDel" type="button" class="btn btn-danger">삭제</button>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+	<!-- /.modal -->
+	<!-- ////////////////////////////////////////////////////////////////// -->
 
 </body>
 
 	<script type="text/javascript">
 		
-		<!-- 준비가 끝나면 -->
+		/* 준비가 끝났을 때 */
 		$(document).ready(function() {
 			
 			console.log("jquery로 요청 data만 받는 요청");
@@ -116,7 +146,7 @@
 			
 		});
 		
-		//저장 버튼을 클릭했을 때
+		/* 저장 버튼을 클릭했을 때 */
 		$("#btnSubmit").on("click", function() {
 			
 			console.log("저장 버튼 클릭");
@@ -132,7 +162,7 @@
 					, password: password
 					, content: content
 			};
-			
+
 			$.ajax({
 				
 				//보낼 때
@@ -166,6 +196,79 @@
 			
 		});
 		
+		/* 삭제 버튼을 클릭했을 때 */
+		$("#ListArea").on("click", ".btnDel", function() {
+			
+			console.log("리스트 삭제 버튼 클릭");
+			
+			var $this = $(this);	
+			var no = $this.data("no");
+			//console.log(no);
+			
+			//모달창에 form값 입력
+			//$("[name=password]").val("");
+			$("#delModal [name=password]").val("");
+			$("[name=no]").val(no);
+			
+			//모달창 띄우기
+			$("#delModal").modal("show");
+			
+		});
+		
+		/* 모달창 삭제 버튼을 클릭했을 때 */
+		$("#btnModalDel").on("click", function() {
+			
+			console.log("모달창 삭제 버튼 클릭");
+			
+			//데이터 모으기
+			var password = $("#delModal [name=password]").val();
+			var no = $("[name=no]").val();
+			
+			var guestVo = {};
+			guestVo.password = password;
+			guestVo.no = no;
+			
+			console.log(guestVo);
+			
+			//서버로 데이터 전송
+			$.ajax({
+				
+				//보낼 때
+				url : "${pageContext.request.contextPath}/api/guestbook/delete",
+				type : "post",
+				//contentType : "application/json",
+				data : guestVo,
+				
+				//받을 때
+				dataType : "json",
+				success : function(result){
+					
+					/* 성공시 처리해야 될 코드 작성 */
+					console.log(result);
+						
+					if(result == "success") { //성공이면 제거하기
+						
+						$("#T"+no).remove();
+						
+						//모달창 닫기
+						$("#delModal").modal("hide");
+						
+					}else { //실패하면
+						alert("비밀번호가 틀렸습니다.");
+					}
+					
+				},
+				error : function(XHR, status, error) {
+					console.error(status + " : " + error);
+				}
+				
+			});
+			
+			//성공이면 리스트에서 제거하기
+			
+			//모달창 닫기
+			
+		});
 		
 		/* 리스트 요청 */
 		function fetchList(){
@@ -175,7 +278,7 @@
 				url : "${pageContext.request.contextPath}/api/guestbook/list",		
 				type : "post",
 				//contentType : "application/json",
-				//data : {name: ”홍길동"},
+				//data : {name: "홍길동"},
 				
 				dataType : "json",
 				success : function(guestbookList){
@@ -198,23 +301,23 @@
 			//var name = guestVo.name;
 			
 			var str = '' ;
-			str += '<table class="guestRead">';
-			str += '   <colgroup>';
-			str += '      <col style="width: 10%;">';
-			str += '      <col style="width: 40%;">';
-			str += '      <col style="width: 40%;">';
-			str += '      <col style="width: 10%;">';
-			str += '   </colgroup>';
-			str += '   <tr>';
-			str += '      <td>'+guestVo.no+'</td>';
-			str += '      <td>'+guestVo.name+'</td>';
-			str += '      <td>'+guestVo.regDate+'</td>';
-			str += '       <td><a href="">[삭제]</a></td>';
-			str += '   </tr>';
-			str += '   <tr>';
-			str += '      <td colspan=4 class="text-left">'+guestVo.content+'</td>';
-			str += '   </tr>';
-			str += '</table>';
+			str += '<table id="T'+guestVo.no+'" class="guestRead">' ;
+			str += '   <colgroup>' ;
+			str += '      <col style="width: 10%;">' ;
+			str += '      <col style="width: 40%;">' ;
+			str += '      <col style="width: 40%;">' ;
+			str += '      <col style="width: 10%;">' ;
+			str += '   </colgroup>' ;
+			str += '   <tr>' ;
+			str += '      <td>'+guestVo.no+'</td>' ;
+			str += '      <td>'+guestVo.name+'</td>' ;
+			str += '      <td>'+guestVo.regDate+'</td>' ;
+			str += '       <td><button class="btnDel" type="button" data-no="'+guestVo.no+'">[삭제]</button></td>' ;
+			str += '   </tr>' ;
+			str += '   <tr>' ;
+			str += '      <td colspan=4 class="text-left">'+guestVo.content+'</td>' ;
+			str += '   </tr>' ;
+			str += '</table>' ;
 
 			if(opt == "down") {
 				$("#ListArea").append(str);
