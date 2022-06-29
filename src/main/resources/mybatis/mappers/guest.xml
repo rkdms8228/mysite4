@@ -41,10 +41,10 @@
 	<select id="add" parameterType="int" resultType="GuestVo">
 		<![CDATA[
 			select no
-					, name
-					, password
-					, content
-					, reg_date regDate
+				   , name
+				   , password
+				   , content
+				   , reg_date regDate
 			from guestbook
 			where no = #{no}
 		]]>
