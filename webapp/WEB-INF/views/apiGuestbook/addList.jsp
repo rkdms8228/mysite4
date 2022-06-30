@@ -175,9 +175,15 @@
 				
 				//받을 때
 				dataType : "json",
-				success : function(result){
+				success : function(gvo){
 					
-					//성공시 처리해야 될 코드 작성
+					//1개데이터 리스트 추가(그리기)하기
+					render(gvo, "up");
+					
+					//입력폼 초기화
+					$("[name=name]").val("");
+					$("[name=password]").val("");
+					$("[name=content]").val("");
 					
 				},
 				error : function(XHR, status, error) {
@@ -186,7 +192,7 @@
 				
 			});
 			
-		)};
+		});
 		
 	/*
 		//저장 버튼을 클릭했을 때
