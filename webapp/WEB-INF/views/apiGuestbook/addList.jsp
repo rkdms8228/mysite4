@@ -54,7 +54,7 @@
 				<!-- //content-head -->
 
 				<div id="guestbook">
-					<form action="${pageContext.request.contextPath}/guestbook/add" method="get">
+					<!-- <form action="${pageContext.request.contextPath}/guestbook/add" method="get"> -->
 						<table id="guestAdd">
 							<colgroup>
 								<col style="width: 70px;">
@@ -80,7 +80,7 @@
 						</table>
 						<!-- //guestWrite -->
 						
-					</form>
+					<!-- </form> -->
 					
 					<!-- guestRead -->
 					<div id="ListArea">
@@ -146,7 +146,50 @@
 			
 		});
 		
-		/* 저장 버튼을 클릭했을 때 */
+		//저장 버튼을 클릭했을 때2
+		$("#btnSubmit").on("click", function() {
+			
+			console.log("저장 버튼 클릭");
+			
+			//데이터 수집
+			var name = $("[name=name]").val();
+			var password = $("[name=password]").val();
+			var content = $("[name=content]").val();
+			
+			//데이터 객체로 묶기
+			var guestVo = {
+					name: name
+					, password: password
+					, content: content
+			};
+			
+			console.log(guestVo);
+			
+			$.ajax({
+				
+				//보낼 때
+				url : "${pageContext.request.contextPath}/api/guestbook/add2",
+				type : "post",
+				contentType : "application/json",
+				data : JSON.stringify(guestVo),	//js객체를 JSON 문자열로 변경
+				
+				//받을 때
+				dataType : "json",
+				success : function(result){
+					
+					//성공시 처리해야 될 코드 작성
+					
+				},
+				error : function(XHR, status, error) {
+					console.error(status + " : " + error);
+				}
+				
+			});
+			
+		)};
+		
+	/*
+		//저장 버튼을 클릭했을 때
 		$("#btnSubmit").on("click", function() {
 			
 			console.log("저장 버튼 클릭");
@@ -166,7 +209,7 @@
 			$.ajax({
 				
 				//보낼 때
-				/* url : "${pageContext.request.contextPath }/api/guestbook/add?name="+name+"&password="+password+"&content="+content,	 */
+				// url : "${pageContext.request.contextPath }/api/guestbook/add?name="+name+"&password="+password+"&content="+content,
 				url : "${pageContext.request.contextPath}/api/guestbook/add",
 				type : "post",
 				//contentType : "application/json",
@@ -179,10 +222,10 @@
 					//성공시 처리해야 될 코드 작성
 					console.log(gvo);
 					
-					/* 1개데이터 리스트 추가(그리기)하기 */
+					//1개데이터 리스트 추가(그리기)하기
 					render(gvo, "up");
 					
-					/* 입력폼 초기화 */
+					//입력폼 초기화
 					$("[name=name]").val("");
 					$("[name=password]").val("");
 					$("[name=content]").val("");
@@ -195,6 +238,7 @@
 			});
 			
 		});
+	*/
 		
 		/* 삭제 버튼을 클릭했을 때 */
 		$("#ListArea").on("click", ".btnDel", function() {
