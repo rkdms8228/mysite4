@@ -65,12 +65,15 @@ public class ApiGuestbookController {
 	}
 	
 	//방명록 저장2
+	@ResponseBody
 	@RequestMapping(value="/api/guestbook/add2", method={RequestMethod.GET, RequestMethod.POST})
 	public GuestVo add2(@RequestBody GuestVo guestVo) {
 		
 		System.out.println("ApiGuestbookController > add2");
 		
-		return null;
+		GuestVo gvo = guestService.add(guestVo);
+		
+		return gvo;
 		
 	}
 	
