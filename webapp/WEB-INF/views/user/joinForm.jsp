@@ -10,6 +10,10 @@
 <link href="/mysite4/assets/css/mysite.css" rel="stylesheet" type="text/css">
 <link href="/mysite4/assets/css/user.css" rel="stylesheet" type="text/css">
 
+<!-- js -->
+<script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/jquery/jquery-1.12.4.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/assets/bootstrap/js/bootstrap.js"></script>
+
 </head>
 
 <body>
@@ -51,13 +55,13 @@
 	
 				<div id="user">
 					<div id="joinForm">
-						<form action="/mysite4/user/join" method="get">
+						<form id="join-form" action="/mysite4/user/join" method="get">
 	
 							<!-- 아이디 -->
 							<div class="form-group">
 								<label class="form-text" for="input-uid">아이디</label> 
 								<input type="text" id="input-uid" name="id" value="" placeholder="아이디를 입력하세요">
-								<button type="button" id="">중복체크</button>
+								<button type="button" id="idCheck">중복체크</button>
 							</div>
 	
 							<!-- 비밀번호 -->
@@ -115,5 +119,71 @@
 	<!-- //wrap -->
 
 </body>
+
+	<script type="text/javascript">
+	
+		//아이디 중복 무조건 체크 (아이디 중복일 때 = 0 , 중복이 아닐 때 = 1 )
+		var idcheck = 0;
+		
+		//idCheck 버튼을 클릭했을 때 
+		$("#join-form").on("submit", function() {
+		    
+			var joinId =  $("#input-uid").val();
+			var joinPw =  $("#input-pass").val();
+			
+			//원래의 submit기능을 못하게 하는 장치(다른 html기능 포함)
+			//event.preventDefault();
+			
+			if (joinId == "" || joinId == null) {		    
+			    alert("아이디를 입력해 주세요.");
+			    return false;
+			}
+			if (joinPw.length > 8) {		    
+			    alert("패스워드를 체크해 주세요.");
+			    return false;
+			}
+			
+			//약관동의
+			var agree = $("#chk-agree").is(":checked");
+			if(agree == false) {
+				alert("약관에 동의해 주세요.");
+			    return false;
+			}
+			
+			$.ajax({
+			 
+				//보낼 때
+				url : "${pageContext.request.contextPath}/api/user/join",
+				type : "post",
+				contentType: "application/json",
+				data: userid,
+				 
+				//받을 때
+				dataType : "json",
+				success : function(data) {
+					
+					if (joinId == null) {
+					    
+					    alert("아이디가 존재합니다. 다른 아이디를 입력해 주세요.");
+
+					}else {
+						
+					    alert("사용 가능한 아이디입니다.");
+					    
+					    //아이디가 중복되지 않으면  idcheck = 1 
+					    idcheck = 1;
+					    
+					}
+				       
+				},
+				 error : function(error) { 
+				     alert("error : " + error);
+				}
+			     
+			});
+			
+		});
+	
+	</script>
 
 </html>
