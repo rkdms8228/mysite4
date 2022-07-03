@@ -150,21 +150,31 @@
 			    return false;
 			}
 			
+		});
+		
+		$("#idCheck").on("click", function() {
+			
+			var joinId = $().val("[name=id]");
+			
+			var userVo = {
+				id : id
+			};
+			
 			$.ajax({
-			 
+				 
 				//보낼 때
 				url : "${pageContext.request.contextPath}/api/user/join",
 				type : "post",
-				contentType: "application/json",
-				data: userid,
+				//contentType: "application/json",
+				data: userVo,
 				 
 				//받을 때
-				dataType : "json",
-				success : function(data) {
+				//dataType : "json",
+				success : function(result) {
 					
-					if (joinId == null) {
+					if (joinId == null || joinId == "") {
 					    
-					    alert("아이디가 존재합니다. 다른 아이디를 입력해 주세요.");
+					    alert("사용할 수 없는 아이디입니다. 다른 아이디를 입력해 주세요.");
 
 					}else {
 						
