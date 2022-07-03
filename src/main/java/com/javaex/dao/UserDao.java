@@ -31,6 +31,18 @@ public class UserDao {
 		
 	}
 	
+	//아이디 중복체크 (회원가입)
+	public UserVo idCheck(String id) {
+		
+		System.out.println("UserDao > idCheck");
+		
+		UserVo authUser = sqlSession.selectOne("user.idCheck", id);
+		
+		return authUser;
+		
+	}
+
+	
 	//회원정보 가져오기(로그인)
 	public UserVo getUser(UserVo userVo) {
 		
