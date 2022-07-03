@@ -155,7 +155,9 @@
 
 <script type="text/javascript">
 
-	
+	$(document).ready(function(){
+		console.log("jquery로 요청 data만 받는 요청");
+	});
 
 </script>
 
