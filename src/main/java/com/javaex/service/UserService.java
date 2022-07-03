@@ -32,6 +32,21 @@ public class UserService {
 		
 	}
 	
+	//아이디 중복체크 (회원가입)
+	public String idCheck(String id) {
+		
+		System.out.println("UserService > idCheck");
+		
+		UserVo userVo = userDao.idCheck(id);
+		
+		if(userVo == null) {
+			return "success";
+		}
+		
+		return "fail";
+		
+	}
+	
 	//로그인
 	public UserVo login(UserVo userVo) {
 		
