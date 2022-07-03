@@ -52,21 +52,29 @@
 
 			<div id="gallery">
 				<div id="list">
-			
+
+
+					<c:if test="${authUser != null}">
+						<button id="imgUpload">이미지올리기</button>
+					</c:if>
 					
-						<button id="btnImgUpload">이미지올리기</button>
-						<div class="clear"></div>
+					<div class="clear"></div>
 
 			
 					<ul id="viewArea">
 						
 						<!-- 이미지반복영역 -->
-							<li>
-								<div class="view" >
-									<img class="imgItem" src="">
-									<div class="imgWriter">작성자: <strong>유재석</strong></div>
+						<c:forEach items="${galleryList}" var="galleryVo">
+							<li id="G${galleryVo.no}" data-no="${galleryVo.no}">
+								<div class="view">
+									<img class="imgItem"
+										src="${pageContext.request.contextPath}/upload/${galleryVo.saveName}">
+									<div class="imgWriter">
+										작성자: <strong>${galleryVo.userName}</strong>
+									</div>
 								</div>
 							</li>
+						</c:forEach>
 						<!-- 이미지반복영역 -->
 					
 					</ul>
@@ -96,24 +104,26 @@
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 					<h4 class="modal-title">이미지등록</h4>
 				</div>
-				
-				<form method="" action="" >
+
+				<form method="post" action="/mysite4/upload"
+					enctype="multipart/form-data">
+					<input type="hidden" name="userNo" value="${authUser.no}">
 					<div class="modal-body">
 						<div class="form-group">
-							<label class="form-text">글작성</label>
-							<input id="addModalContent" type="text" name="" value="" >
+							<label class="form-text">글작성</label> <input id="addModalContent"
+								type="text" name="" value="">
 						</div>
 						<div class="form-group">
-							<label class="form-text">이미지선택</label>
-							<input id="file" type="file" name="" value="" >
+							<label class="form-text">이미지선택</label> <input id="file"
+								type="file" name="" value="">
 						</div>
 					</div>
 					<div class="modal-footer">
 						<button type="submit" class="btn" id="btnUpload">등록</button>
 					</div>
 				</form>
-				
-				
+
+
 			</div><!-- /.modal-content -->
 		</div><!-- /.modal-dialog -->
 	</div><!-- /.modal -->
@@ -157,6 +167,50 @@
 
 	$(document).ready(function(){
 		console.log("jquery로 요청 data만 받는 요청");
+	});
+	
+	/* 이미지 올리는 버튼 클릭했을 때 */
+	$("#imgUpload").on("click", function() {
+		//모달창 띄우기
+		$("#addModal").modal("show");
+	});
+	
+	/* 이미지 클릭했을 때 */
+	$("#viewArea").on("click", "li", function() {
+		
+		var $this = $(this);
+		var no = $this.data("no");
+		
+		$.ajax({
+			
+			url : "${pageContext.request.contextPath}/gallery/getImage",
+			type : "post",
+			//contentType : "application/json",
+			data : {no},
+			
+			//dataType : "json",
+			success : function(galleryVo){
+				
+				//성공시 처리해야 될 코드 작성
+				console.log(galleryVo);
+				
+				var src = "${pageContext.request.contextPath}/upload/"+galleryVo.saveName;
+				var content = galleryVo.content;
+				var userNo = galleryVo.userNo;
+				
+
+				$("[name=no]").val(galleryVo.no);
+				$("#viewModelContent").html(content);
+				$("#viewModelImg").attr("src", src);
+				
+			},
+			error : function(XHR, status, error) {
+				console.error(status + " : " + error);
+			}
+		});
+		
+		$("#viewModal").modal("show");
+		
 	});
 
 </script>
