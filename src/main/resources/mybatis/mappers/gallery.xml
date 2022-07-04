@@ -46,4 +46,14 @@
 		
 	</insert>
 	
+	<!-- 이미지 삭제 -->
+	<delete id="delete" parameterType="int">
+	
+		<![CDATA[
+			delete gallery
+			where no = #{no}
+		]]>
+		
+	</delete>
+	
 </mapper>
