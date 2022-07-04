@@ -1,0 +1,82 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="rboard">
+
+	<!-- 리스트 불러오기 + 검색 -->
+	<select id="getList" parameterType="String" resultType="map">
+		<![CDATA[
+			select r.no
+			        , r.title
+			        , u.name
+			        , r.hit
+			        , to_char(r.reg_date,'YYYY-MM-DD HH24:MI') regDate
+			        , r.user_no userNo
+			        , r.group_no groupNo
+          			, r.order_no orderNo
+          			, r.depth
+			from rboard r, users u
+			where u.no = r.user_no
+			and title like #{keyword}
+			order by no asc
+		]]>
+	</select>
+	
+	<!-- 게시판 내용 읽기 -->
+	<select id="read" parameterType="int" resultType="map">
+		<![CDATA[
+			select r.no
+			        , r.title
+			        , u.name
+			        , r.content
+			        , r.hit
+			        , to_char(r.reg_date,'YYYY-MM-DD HH24:MI') regDate
+			        , r.user_no userNo
+			        , r.group_no groupNo
+          			, r.order_no orderNo
+          			, r.depth
+			from rboard r, users u
+			where u.no = r.user_no
+			and b.no = #{no}
+		]]>
+	</select>
+	
+	<!-- 게시판 조회수 -->
+	<update id="boardHit" parameterType="int">
+		<![CDATA[
+			update rboard
+			set hit = hit + 1
+			where no = #{no}
+		]]>
+	</update>
+	
+	<!-- 게시판 글쓰기 -->
+	<insert id="rboardInsert" parameterType="RBoardVo">
+		<selectKey keyProperty="no" resultType="int" order="BEFORE">
+			select seq_rboard_no.nextval from dual
+		</selectKey>
+		
+		<![CDATA[
+			insert into rboard
+			values(#{no}, #{userNo}, #{title}, #{content}, 0, sysdate, #{no}, 1, 0)
+		]]>
+	</insert>
+	
+	<!-- 게시판 수정 -->
+	<update id="modify" parameterType="RBoardVo">
+		<![CDATA[
+			update rboard
+			set title = #{title}
+				, content = #{content}
+			where no = #{no}
+		]]>
+	</update>
+	
+	<!-- 게시판 삭제 -->
+	<delete id="delete" parameterType="int">
+		<![CDATA[
+			delete from rboard
+			where no = #{no}
+		]]>
+	</delete>
+
+</mapper>
