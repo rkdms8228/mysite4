@@ -138,7 +138,7 @@
 			    alert("아이디를 입력해 주세요.");
 			    return false;
 			}
-			if (joinPw.length > 8) {		    
+			if (joinPw == "" || joinPw == null) {		    
 			    alert("패스워드를 체크해 주세요.");
 			    return false;
 			}
@@ -154,7 +154,7 @@
 		
 		$("#idCheck").on("click", function() {
 			
-			var joinId = $().val("[name=id]");
+			var id = $("[name=id]").val();
 			
 			var userVo = {
 				id : id
@@ -172,10 +172,12 @@
 				//dataType : "json",
 				success : function(result) {
 					
-					if (joinId == null || joinId == "") {
+					if (id == null || id == "") {
 					    
-					    alert("사용할 수 없는 아이디입니다. 다른 아이디를 입력해 주세요.");
+					    alert("아이디를 입력해 주세요.");
 
+					}else if (result == "fail") {
+						 alert("이미 존재하는 아이디 입니다. 다른 아이디를 입력해 주세요.");
 					}else {
 						
 					    alert("사용 가능한 아이디입니다.");
