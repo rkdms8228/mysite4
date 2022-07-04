@@ -41,7 +41,7 @@
 		
 		<![CDATA[
 			insert into gallery
-			values(#{no}, #{userNo}, #{content}, #{filePath}, #{orgName}, #{saveName}, #{fileSize})
+			values (#{no}, #{userNo}, #{content}, #{filePath}, #{orgName}, #{saveName}, #{fileSize})
 		]]>
 		
 	</insert>
