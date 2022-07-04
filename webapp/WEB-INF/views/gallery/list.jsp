@@ -70,7 +70,7 @@
 									<img class="imgItem"
 										src="${pageContext.request.contextPath}/upload/${galleryVo.saveName}">
 									<div class="imgWriter">
-										작성자: <strong>${galleryVo.userName}</strong>
+										[ 작성자: <strong>${galleryVo.userName} ]</strong>
 									</div>
 								</div>
 							</li>
@@ -151,13 +151,13 @@
 					</div>
 					
 				</div>
-				<form method="" action="">
+
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
 						<button type="button" class="btn btn-danger" id="btnDel">삭제</button>
+						<input type="hidden" id="galleryNo" name="no" value="">
 					</div>
-				</form>
-				
+	
 			</div><!-- /.modal-content -->
 		</div><!-- /.modal-dialog -->
 	</div><!-- /.modal -->	
@@ -205,6 +205,18 @@
 				$("#viewModelContent").html(content);
 				$("#viewModelImg").attr("src", src);
 				
+				if(userNo == "${authUser.no}") {
+					
+					//작성자가 클릭했을 떄
+					$("#btnDel").show();
+					
+				} else {
+					
+					//작성자가 아닌 사람이 클릭했을 때
+					$("#btnDel").hide();
+					
+				}
+				
 			},
 			error : function(XHR, status, error) {
 				console.error(status + " : " + error);
@@ -212,6 +224,41 @@
 		});
 		
 		$("#viewModal").modal("show");
+		
+	});
+
+	$("#btnDel").on("click", function() {
+		
+		if(confirm("삭제하면 복구할 수 없습니다. 그래도 삭제하시겠습니까?") == true) {
+			
+			var no = $("#galleryNo").val();
+			
+			$.ajax({
+				
+				url : "${pageContext.request.contextPath }/gallery/delete",
+				type : "get",
+				//contentType : "application/json",
+				data : {no},
+				
+				//dataType : "json",
+				success : function(result){
+					
+					//성공시 처리해야 될 코드 작성
+					console.log(result);
+					
+					if(result == "success") {
+						$("#G"+no).remove();
+					}
+					
+					$("#viewModal").modal("hide");
+					
+				},
+				error : function(XHR, status, error) {
+					console.error(status + " : " + error);
+				}
+			});
+			
+		}
 		
 	});
 
