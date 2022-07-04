@@ -97,5 +97,20 @@ public class GalleryService {
 			e.printStackTrace();
 		}
 	}
+	
+	//이미지 삭제
+	public String delete(int no) {
+		
+		System.out.println("GalleryService > delete");
+		
+		int count = galleryDao.delete(no);
+		
+		if(count > 0) {
+			return "success";
+		}
+		
+		return "fail";
+		
+	}
 
 }
