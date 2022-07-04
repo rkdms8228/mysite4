@@ -68,5 +68,18 @@ public class GalleryController {
 		
 		return "redirect:/gallery/list";
 	}
+	
+	//이미지 삭제
+	@ResponseBody
+	@RequestMapping(value="/delete", method= {RequestMethod.GET, RequestMethod.POST})
+	public String delete(@RequestParam("no") int no) {
+		
+		System.out.println("GalleryController > delete");
+		
+		String galleryDel = galleryService.delete(no);
+		
+		return galleryDel;
+		
+	}
 
 }
