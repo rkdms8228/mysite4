@@ -9,12 +9,12 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
-<link href="${pageContext.request.contextPath }/assets/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css">
-<link href="${pageContext.request.contextPath }/assets/css/mysite.css" rel="stylesheet" type="text/css">
-<link href="${pageContext.request.contextPath }/assets/css/gallery.css" rel="stylesheet" type="text/css">
+<link href="${pageContext.request.contextPath}/assets/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css">
+<link href="${pageContext.request.contextPath}/assets/css/mysite.css" rel="stylesheet" type="text/css">
+<link href="${pageContext.request.contextPath}/assets/css/gallery.css" rel="stylesheet" type="text/css">
 
-<script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/jquery/jquery-1.12.4.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath }/assets/bootstrap/js/bootstrap.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/jquery/jquery-1.12.4.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/assets/bootstrap/js/bootstrap.js"></script>
 
 </head>
 
@@ -101,21 +101,23 @@
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
 					<h4 class="modal-title">이미지등록</h4>
 				</div>
 
-				<form method="post" action="/mysite4/upload"
+				<form method="post" action="/mysite4/gallery/upload"
 					enctype="multipart/form-data">
 					<input type="hidden" name="userNo" value="${authUser.no}">
 					<div class="modal-body">
 						<div class="form-group">
-							<label class="form-text">글작성</label> <input id="addModalContent"
-								type="text" name="" value="">
+							<label class="form-text">글작성</label>
+							<input id="addModalContent" type="text" name="content" value="">
 						</div>
 						<div class="form-group">
-							<label class="form-text">이미지선택</label> <input id="file"
-								type="file" name="" value="">
+							<label class="form-text">이미지선택</label>
+								<input id="file" type="file" name="file" value="">
 						</div>
 					</div>
 					<div class="modal-footer">
@@ -214,9 +216,6 @@
 	});
 
 </script>
-
-
-
 
 </html>
 
