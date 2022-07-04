@@ -53,7 +53,7 @@ public class GalleryService {
 		
 		System.out.println("GalleryService > upload");
 		
-		String saveDir = "c:\\javaStudy\\upload";
+		String saveDir = "C:\\javaStudy\\upload";
 		
 		//[1]파일 정보(DB 저장) 추출 저장
 		
@@ -78,7 +78,7 @@ public class GalleryService {
 		galleryVo.setFilePath(filePath);
 		galleryVo.setFileSize(fileSize);
 		
-		System.out.println(galleryVo);
+		System.out.println("갤러리"+galleryVo);
 		
 		//DB 저장
 		galleryDao.fileUpload(galleryVo);
