@@ -54,5 +54,16 @@ public class GalleryDao {
 		return count;
 		
 	}
+	
+	//이미지 삭제
+	public int delete(int no) {
+		
+		System.out.println("GalleryDao > delete");
+		
+		int count = sqlSession.delete("gallery.delete", no);
+		
+		return count;
+		
+	}
 
 }
