@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.javaex.service.BoardService;
 import com.javaex.vo.BoardVo;
@@ -32,6 +33,21 @@ public class BoardController {
 	
 	
 	//메소드-일반
+	//리스트 불러오기 + 검색(페이징)
+	@RequestMapping(value="/list2", method={RequestMethod.GET, RequestMethod.POST})
+	public String list2(Model model, @RequestParam(value="crtPage", required = false, defaultValue = "1")int crtPage) {
+		
+		System.out.println("BoardController > list2");
+		
+		Map<String, Object> pMap = boardService.getList2(crtPage);
+		model.addAttribute("pMap", pMap);
+		
+		//System.out.println(boardList);
+		
+		return "board/list2";
+		
+	}
+	
 	//리스트 불러오기 + 검색
 	@RequestMapping(value="/list", method={RequestMethod.GET, RequestMethod.POST})
 	public String list(Model model, String keyword) {
