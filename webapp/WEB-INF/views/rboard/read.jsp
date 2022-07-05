@@ -79,7 +79,12 @@
 							<c:if test="${authUser.no eq bMap.USERNO}">
 								<a id="btn_modify" href="/mysite4/rboard/modifyForm/${bMap.NO}">수정</a>
 							</c:if>
+							
 							<a id="btn_modify" href="/mysite4/rboard/list">목록</a>
+							
+							<c:if test="${authUser != null}">
+								<a id="btn_modify" href="${pageContext.request.contextPath }/rboard/commentForm/${bMap.NO}">댓글</a>
+							</c:if>
 							
 						</form>
 						<!-- //form -->
