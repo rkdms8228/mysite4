@@ -2,6 +2,47 @@
 
 <mapper namespace="board">
 
+	<!-- 리스트 불러오기 + 검색(페이징) -->
+	<select id="getList2" parameterType="String" resultType="map">
+		<![CDATA[
+			select ort.rn
+		           , ort.no
+		           , ort.title
+		           , ort.name
+		           , ort.hit
+		           , ort.regDate
+		           , ort.userNo
+			from (select rownum rn
+	                     , ot.no
+	                     , ot.title
+	                     , ot.name
+	                     , ot.hit
+	                     , ot.regDate
+	                     , ot.userNo
+		          from (select b.no
+	                           , b.title
+	                           , u.name
+	                           , b.hit
+	                           , to_char(b.reg_date,'YYYY-MM-DD HH24:MI') regDate
+	                           , b.user_no userNo
+	                  from board b, users u
+	                  where u.no = b.user_no
+	                  order by b.no asc)ot
+	                  )ort
+			where rn>=#{startRnum}
+			and rn<=#{endRnum}
+		]]>
+	</select>
+	
+	<!-- 전체 글갯수 구하기 -->
+	<select id="selectTotalCnt" resultType="int">
+		<![CDATA[
+			select count(*) count
+			from board b, users u
+			where b.user_no = u.no
+		]]>
+	</select>
+	
 	<!-- 리스트 불러오기 + 검색 -->
 	<select id="getList" parameterType="String" resultType="map">
 		<![CDATA[
