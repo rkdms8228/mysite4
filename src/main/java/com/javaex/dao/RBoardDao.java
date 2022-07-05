@@ -96,5 +96,16 @@ public class RBoardDao {
 		return count;
 		
 	}
+	
+	//게시판 댓글쓰기
+	public int coment(RBoardVo rboardVo) {
+		
+		System.out.println("RBoardDao > coment");
+		
+		int count = sqlSession.update("rboard.coment", rboardVo);
+		
+		return count;
+		
+	}
 
 }
