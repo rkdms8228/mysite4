@@ -82,5 +82,16 @@ public class RBoardService {
 		return count;
 		
 	}
+	
+	//게시판 댓글쓰기
+	public int coment(RBoardVo rboardVo) {
+		
+		System.out.println("RBoardService > coment");
+		
+		int count = rboardDao.coment(rboardVo);
+		
+		return count;
+		
+	}
 
 }
