@@ -134,5 +134,29 @@ public class RBoardController {
 		return "redirect:/rboard/list";
 		
 	}
+	
+	//게시판 댓글폼
+	@RequestMapping(value="/comentForm/{no}", method = {RequestMethod.GET, RequestMethod.POST})
+	public String comentForm(Model model, @PathVariable int no) {
+		
+		System.out.println("RBoardController > comentForm");
+		
+		model.addAttribute(no);
+		
+		return "/rboard/comentForm";
+		
+	}
+	
+	//게시판 댓글쓰기
+	@RequestMapping(value="/coment", method = {RequestMethod.GET, RequestMethod.POST})
+	public String coment(@ModelAttribute RBoardVo rboardVo) {
+		
+		System.out.println("RBoardController > coment");
+		
+		rboardService.coment(rboardVo);
+		
+		return "redirect:/rboard/list";
+		
+	}
 
 }
