@@ -25,19 +25,14 @@
 		<!-- //nav -->
 
 		<div id="container" class="clearfix">
-			<div id="aside">
-				<h2>게시판</h2>
-				<ul>
-					<li><a href="">일반게시판</a></li>
-					<li><a href="">댓글게시판</a></li>
-				</ul>
-			</div>
+			<!-- aside -->
+			<c:import url="/WEB-INF/views/include/boardAside.jsp"></c:import>
 			<!-- //aside -->
 
 			<div id="content">
 
 				<div id="content-head">
-					<h3>게시판</h3>
+					<h3>일반게시판</h3>
 					<div id="location">
 						<ul>
 							<li>홈</li>
